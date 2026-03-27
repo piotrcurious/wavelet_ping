@@ -61,6 +61,10 @@ snd_pcm_sframes_t snd_pcm_readi(snd_pcm_t *pcm, void *buffer, snd_pcm_uframes_t 
         if (i >= delay2 && i - delay2 < playback_len) {
             out[i] += 0.25f * global_playback_buffer[i - delay2];
         }
+
+        // Add some noise
+        float noise = ((float)rand() / (float)RAND_MAX - 0.5f) * 0.01f;
+        out[i] += noise;
     }
     return size;
 }
